@@ -1,0 +1,23 @@
+﻿@model List<ShoppingWebsite.Models.Product>
+
+@{
+    ViewBag.Title = "Check Cart";
+}
+<div class="container" style="min-height:550px ;">
+    <center>
+        @{
+            foreach (var product in Model)
+            {
+                <div class="row">
+                    <img width="200px" height="200px" src="~/Files/@product.Picture" />
+                    <h4>Product Name: @product.Name</h4>
+                    <h4>Price: $@product.Price</h4>
+                </div>
+            }
+        }
+    </center>
+
+</div>
+
+
+   

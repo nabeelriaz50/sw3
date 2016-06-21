@@ -1,0 +1,14 @@
+﻿@{
+    if (HttpContext.Current.Session["isAdminLoggedIn"]!= null) 
+    {
+        Layout = "~/Views/Shared/_Admin.cshtml";
+    }
+    else if (HttpContext.Current.Session["isUserLoggedIn"] != null)
+    {
+        Layout = "~/Views/Shared/_Default.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Default.cshtml";
+    }
+}

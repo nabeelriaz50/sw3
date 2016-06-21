@@ -1,0 +1,36 @@
+﻿@model List <ShoppingWebsite.Models.Product>
+
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+<h2>CheckOut</h2>
+<div class="container" >
+    <div class="row">
+        <center>
+            
+                @{
+                    double bill = 0;
+                    foreach (var product in Model)
+                    {
+                        bill += product.Price;
+                    }
+
+                    if (bill == 0)
+                    {
+                        <h1>
+                            Your Cart is Empty</h1>
+                    }
+                    else
+                    {
+                        <h1>
+                            Your bill is $ @bill
+                        </h1>
+                    }
+
+}
+                        
+        </center>
+    </div>
+
+</div>

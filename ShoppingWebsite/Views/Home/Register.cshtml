@@ -1,0 +1,127 @@
+﻿@model ShoppingWebsite.Models.User
+
+<div class="container" style="min-height:550px;">
+    
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        
+        <fieldset>
+            <legend>Register</legend>
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-sm-2" })
+                 </div>
+                <div class="editor-field">
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-sm-2" })
+                </div>
+                <div class="editor-field">
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @onblur="checkUsernameAvailibility();"})
+                        @Html.ValidationMessageFor(model => model.Email)
+                        <div id="usernameAvailibility"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-sm-2" })
+                </div>
+                <div class="editor-field">
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Password, new { type = "password", @class = "form-control", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ProfilePic, new { @class = "control-label col-sm-2" })
+                </div>
+                <div class="editor-field">
+                    <div class="col-sm-10">
+                       @Html.TextBoxFor(model => model.ProfilePic, new { type = "file", @class = "form-control"})
+                       @Html.ValidationMessageFor(model => model.ProfilePic)
+                                              
+                        @ViewData["Error"]
+                                               
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Address, new { @class = "control-label col-sm-2" })
+                </div>
+                <div class="editor-field">
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Address" })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SecretQuestion, new { @class = "control-label col-sm-2" })
+                </div>
+                <div class="editor-field">
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.SecretQuestion, new { @class = "form-control", @placeholder = "Secret Question" })
+                        @Html.ValidationMessageFor(model => model.SecretQuestion)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.AnswerOfSecretQuestion, new { @class = "control-label col-sm-2" })
+                </div>
+                <div class="editor-field">
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.AnswerOfSecretQuestion, new { @class = "form-control", @placeholder = "Answer For Secret Question" })
+                        @Html.ValidationMessageFor(model => model.AnswerOfSecretQuestion)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success" id="submit">Submit</button>
+                </div>
+            </div>
+            </fieldset>
+    }
+</div>
+
+
+<script>
+
+
+        function checkUsernameAvailibility()
+        {
+            var Email = document.getElementById("Email").value;
+            if (Email.length == 0)
+            {
+                $('#usernameAvailibility').text("Please Enter Email");
+                return;
+            }
+
+            $.getJSON("/home/CheckUsernameAvailibility?Username=" + Email, function (data) {
+                if (data) {
+                    $('#usernameAvailibility').text("Username is not available.");
+                    $('#submit').prop('disabled', true);
+                }
+                else {
+                    $('#usernameAvailibility').text("Username is available. ");
+                    $('#submit').prop('disabled', false);
+                }
+            });
+        }
+
+</script>

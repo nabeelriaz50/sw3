@@ -1,0 +1,41 @@
+﻿@model List<ShoppingWebsite.Models.Product>
+<div class="container">
+    @{
+        int i = 4;
+        bool isFirst = true;
+        bool isTagClosed = false;
+   
+        foreach (var product in Model)
+        {
+            if (i >= 4)
+            {
+                if (isFirst)
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    isTagClosed = true; 
+                    @Html.Raw("</div>");
+                }
+
+                @Html.Raw("<div class=\"row\">");
+                i = 0;
+            }
+            else
+            {
+                isTagClosed = false; 
+
+                <div class="col-lg-3 col-md-4  col-sm-6 col-xs-12 ">
+                    <a href="@Url.Action("ViewProduct", "Home", new { ProductId = product.Id})"><img src="~/Files/@product.Picture" width="200" height="200" /></a>
+                    <p>@product.Name</p>
+                </div>
+                i++;
+            }
+        }
+        if (!isTagClosed)
+        {
+            @Html.Raw("</div>");
+        }
+    }
+</div>

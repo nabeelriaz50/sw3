@@ -1,0 +1,28 @@
+﻿@model List<ShoppingWebsite.Models.Product>
+<div class="cover">
+    <img src="~/images/MainPageCover.jpg" class="img-responsive" />
+</div>
+<div class="container"><h1>Latest Products</h1></div>
+<div class="container">
+    <div class="row">
+        @{
+            int i = 0;
+            foreach (var product in Model)
+            {
+                if (i < 4)
+                {
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
+                <div class="col-lg-3 col-md-4  col-sm-6 col-xs-12 ">
+                    <a href="@Url.Action("ViewProduct", "Home", new { ProductId = product.Id})" ><img src="~/Files/@product.Picture" width="200" height="200" /></a>
+                    <p>@product.Name</p>
+                </div>
+            }
+
+        }
+    </div>
+</div>
